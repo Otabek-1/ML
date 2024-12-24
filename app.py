@@ -51,13 +51,13 @@ def add_question():
     data = request.get_json()  # JSON formatda so'rov
     new_question = data.get('savol')
     new_answer = data.get('javob')
-    new_category = data.get('tasnif')
 
-    if not new_question or not new_answer or not new_category:
+
+    if not new_question or not new_answer:
         return jsonify({'error': 'Yangi savol, javob yoki tasnif berilmadi!'}), 400
     
     # Yangi savol va javobni CSV faylga qo‘shish
-    new_data = pd.DataFrame([[new_question, new_answer, new_category]], columns=['savol', 'javob', 'tasnif'])
+    new_data = pd.DataFrame([[new_question, new_answer]], columns=['savol', 'tasnif'])
     new_data.to_csv('file.csv', mode='a', header=False, index=False)
 
     # Modelni qayta o‘rganish (re-train)
