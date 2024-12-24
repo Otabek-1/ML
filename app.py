@@ -1,4 +1,5 @@
 import pandas as pd
+import os
 from flask import Flask, request, jsonify
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.ensemble import RandomForestClassifier
@@ -44,6 +45,6 @@ def predict():
     return jsonify({'savol': user_input, 'javob': predicted_answer[0]})
 
 
-if __name__ == '__main__':
-    # Flask serverni ishga tushirish
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))  # Render avtomatik port beradi
+    app.run(host="0.0.0.0", port=port)
